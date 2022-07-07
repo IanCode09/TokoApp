@@ -82,4 +82,22 @@ public class ProductServiceImpl implements ProductService {
 
         return productDTOList;
     }
+
+    @Override
+    public ProductDTO updateProduct(int productId, ProductRequestDTO productRequestDTO) {
+        Optional<ProductModel> product = productRepository.findById(productId);
+
+        if (product.isPresent()) {
+            product.get().setCategory(categoryRepository.findById(productRequestDTO.getCategoryId()).get());
+            product.get().setProductName(productRequestDTO.getProductName());
+            product.get().setStock(productRequestDTO.getStock());
+            product.get().setPrice(productRequestDTO.getPrice());
+            product.get().setDescription(productRequestDTO.getDescription());
+            product.get().setStatus(productRequestDTO.getStatus());
+
+            return productConverter.convertToDTO(productRepository.save(product.get()));
+        } else {
+            return null;
+        }
+    }
 }

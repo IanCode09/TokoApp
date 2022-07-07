@@ -10,4 +10,5 @@ public interface ProductService {
     ProductDTO getProductDetail(int productId);
     List<ProductDTO> getProductsByStoreId(int storeId);
     List<ProductDTO> searchProductByName(String keywords);
+    ProductDTO updateProduct(int productId, ProductRequestDTO productRequestDTO);
 }

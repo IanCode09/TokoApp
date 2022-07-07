@@ -65,4 +65,19 @@ public class ProductController {
         data.setData(productDTOList);
         HandlerResponse.responseSuccessWithData(response, data);
     }
+
+    @PutMapping("/{productId}")
+    public void updateProductByProductId(HttpServletRequest request, HttpServletResponse response, @PathVariable int productId,
+                                         @RequestBody ProductRequestDTO productRequestDTO) throws IOException {
+
+        ProductDTO productDTO = productService.updateProduct(productId, productRequestDTO);
+
+        if (productDTO != null) {
+            DataResponse<ProductDTO> data = new DataResponse<>();
+            data.setData(productDTO);
+            HandlerResponse.responseSuccessWithData(response, data);
+        } else {
+            HandlerResponse.responseBadRequest(response, 400, "Product not found or something wrong");
+        }
+    }
 }
