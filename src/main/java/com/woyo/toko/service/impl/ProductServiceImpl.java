@@ -58,29 +58,15 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> getProductsByStoreId(int storeId) {
         List<ProductModel> products = productRepository.findProductsByStore(storeId);
-        List<ProductDTO> productDTOList = new ArrayList<>();
-
-        products.forEach(product -> {
-            ProductDTO productDTO = productConverter.convertToDTO(product);
-
-            productDTOList.add(productDTO);
-        });
-
-        return productDTOList;
+        return products.stream().map(product -> productConverter.convertToDTO(product))
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<ProductDTO> searchProductByName(String keywords) {
         List<ProductModel> products = productRepository.searchProductByName(keywords);
-        List<ProductDTO> productDTOList = new ArrayList<>();
-
-        products.forEach(product -> {
-            ProductDTO productDTO = productConverter.convertToDTO(product);
-
-            productDTOList.add(productDTO);
-        });
-
-        return productDTOList;
+        return products.stream().map(product -> productConverter.convertToDTO(product))
+                .collect(Collectors.toList());
     }
 
     @Override

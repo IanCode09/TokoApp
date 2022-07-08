@@ -57,20 +57,8 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public List<StoreDTO> getAllStore() {
-
         return storeRepository.findAll().stream()
-                .map(this::convertToDTO).collect(Collectors.toList());
-    }
-
-    public StoreDTO convertToDTO(StoreModel item) {
-        StoreDTO storeDTO = new StoreDTO();
-        storeDTO.setStoreId(item.getStoreId());
-        storeDTO.setStoreName(item.getStoreName());
-        storeDTO.setStoreAddress(item.getStoreAddress());
-        storeDTO.setStorePhone(item.getStorePhone());
-        storeDTO.setStoreEmail(item.getStoreEmail());
-        storeDTO.setStoreDescription(item.getStoreDescription());
-
-        return storeDTO;
+                .map(store -> storeConverter.convertToDto(store))
+                .collect(Collectors.toList());
     }
 }
