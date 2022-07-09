@@ -47,18 +47,4 @@ public class UserController {
             HandlerResponse.responseNotFound(response, 404, "User not found");
         }
     }
-
-    @PostMapping("/login")
-    public void userLogin(HttpServletRequest request, HttpServletResponse response, @RequestBody UserRequestLoginDTO userRequestLoginDTO) throws IOException {
-
-        UserDTO userDTO = userService.userLogin(userRequestLoginDTO);
-
-        if (userDTO != null) {
-            DataResponse<UserDTO> data = new DataResponse<>();
-            data.setData(userDTO);
-            HandlerResponse.responseSuccessWithData(response, data);
-        } else {
-            HandlerResponse.responseBadRequest(response, 400, "Email or password is wrong");
-        }
-    }
 }
